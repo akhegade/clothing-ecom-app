@@ -3,14 +3,14 @@ import "firebase/firestore";
 import "firebase/auth";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBFt_tORrQaTDC_GSrcxRmPzphSKumjrok",
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "your-fash.firebaseapp.com",
-  databaseURL: "https://your-fash.firebaseio.com",
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: "your-fash",
   storageBucket: "your-fash.appspot.com",
-  messagingSenderId: "120790033523",
-  appId: "1:120790033523:web:3fe2ac663aa7cd3e36b606",
-  measurementId: "G-BHPB2Y6DL9"
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
