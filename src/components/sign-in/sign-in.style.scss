@@ -5,8 +5,13 @@
   .title {
     margin: 10px 0;
   }
-
-  .buttons{
+  .restPassword {
+    // position: absolute;
+    // top:56.5%;
+    color: #4285f4;
+    cursor: pointer;
+  }
+  .buttons {
     display: flex;
     justify-content: space-between;
   }

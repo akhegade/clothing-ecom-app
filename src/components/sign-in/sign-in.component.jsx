@@ -1,4 +1,6 @@
 import React from "react";
+
+import {Link} from "react-router-dom";
 import "./sign-in.style.scss";
 
 import FormInput from "../form-input/form-input.component";
@@ -22,8 +24,23 @@ class SignIn extends React.Component {
     this.setState({[name]: value});
   };
 
+  // password Reset method
+  resetPassword = async () => {
+    const emailAddress = this.state.email;
+    auth
+      .sendPasswordResetEmail(emailAddress)
+      .then(function() {
+        alert("Check your email");
+      })
+      .catch(function(error) {
+        // An error happened.
+        console.log(error);
+      });
+  };
+
   handleSubmit = async event => {
     event.preventDefault();
+
     const {email, password} = this.state;
 
     try {
@@ -46,8 +63,8 @@ class SignIn extends React.Component {
             name="email"
             value={this.state.email}
             handleChange={this.handleChange}
-            required
             label="Email"
+            required
           />
           <FormInput
             type="password"
@@ -56,14 +73,35 @@ class SignIn extends React.Component {
             handleChange={this.handleChange}
             required
             label="Password"
-          />
+          >
+            <Link
+              to={`rest-password/${this.state.email}`}
+              className="restPassword"
+              // onClick={this.resetPassword}
+            >
+              Forgot Password
+            </Link>
+          </FormInput>
+
+          {/* <span
+            className="restPassword"
+            onClick={this.resetPassword}
+          >
+            Forgot Password
+          </span> */}
+
           <div className="buttons">
             <CustomButton type="submit">Sign In </CustomButton>
-            <CustomButton  type="button"  onClick={signInWithGoogle} isGoogleSignIn>
+            <CustomButton
+              type="button"
+              onClick={signInWithGoogle}
+              isGoogleSignIn
+            >
               Sign In With Google
             </CustomButton>
           </div>
         </form>
+        {/* <span onClick={this.props.signUp}>I don't have account</span> */}
       </div>
     );
   }

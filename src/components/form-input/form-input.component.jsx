@@ -2,7 +2,7 @@ import React from "react";
 
 import "./form-input.style.scss";
 
-const FormInput = ({handleChange, label, ...otherProps}) => (
+const FormInput = ({handleChange, label,children, ...otherProps}) => (
   <div className="group">
     <input className="form-input" onChange={handleChange} {...otherProps} />
     {label ? (
@@ -13,6 +13,7 @@ const FormInput = ({handleChange, label, ...otherProps}) => (
         {label}
       </label>
     ) : null}
+    {children}
   </div>
 );
 
