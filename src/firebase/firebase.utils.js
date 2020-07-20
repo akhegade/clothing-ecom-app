@@ -16,19 +16,20 @@ var firebaseConfig = {
 //CREATING USER IN FIRE_BASE FIRE_STORE
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-  console.log("userAuth = ",userAuth);
-  
+  console.log("userAuth = ", userAuth);
+
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   console.log("userRef", userRef);
   // console.log("tolken",userRef.pd.credentials.getToken());
-  
-//  console.log("token = ",auth.getToken());
- 
+
+  //  console.log("token = ",auth.getToken());
+
   const snapShot = await userRef.get();
-   
-  console.log("snap shot =",snapShot);
- 
+
+  console.log("snap shot =", snapShot);
+  console.log("displayName =", additionalData);
+
   if (!snapShot.exitsts) {
     const {displayName, email} = userAuth;
     const createdAt = new Date();
