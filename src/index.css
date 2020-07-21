@@ -16,6 +16,7 @@ code {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  /* display: none; */
 }
 
 /* Track */
@@ -32,5 +33,6 @@ code {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+  background: #b30000;
+  /* display: initial;  */
 }
