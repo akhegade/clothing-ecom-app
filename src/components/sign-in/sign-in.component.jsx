@@ -38,6 +38,7 @@ class SignIn extends React.Component {
       });
   };
 
+// login from firbase using signInWithEmailAndPassword
   handleSubmit = async event => {
     event.preventDefault();
 

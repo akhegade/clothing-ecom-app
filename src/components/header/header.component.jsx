@@ -1,6 +1,10 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link,NavLink} from "react-router-dom";
 import {connect} from "react-redux";
+
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "../../redux/user/user.selector";
+import {selectCartHidden} from "../../redux/cart/cart.selectors";
 
 import {auth} from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
@@ -17,21 +21,21 @@ const Header = ({currentUser, hidden}) => {
         <Logo className="logo" />
       </Link>
       <div className="options">
-        <Link className="option" to="/shop">
+        <NavLink className="option" to="/shop">
           SHOP
-        </Link>
-        <Link className="option" to="/contact">
+        </NavLink>
+        <NavLink className="option" to="/contact">
           CONTACT
-        </Link>
+        </NavLink>
         {currentUser ? (
           <div className="option" onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
         ) : (
-          <Link className="option" to="/signin">
+          <NavLink className="option" to="/signin">
             {" "}
             SIGN IN
-          </Link>
+          </NavLink>
         )}
         <CartIcon />
       </div>
@@ -40,11 +44,23 @@ const Header = ({currentUser, hidden}) => {
   );
 };
 
-//advance way detructuring objects
-const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
-  currentUser,
-  hidden
+//with  createStructuredSelector from reselect library;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
 });
+
+//without using createStacturedSelector
+// const mapStateToProps = state => ({
+//   currentUser: selectCurrentUser(state),
+//   hidden: selectCartHidden(state)
+// });
+
+//advance way detructuring objects
+// const mapStateToProps = ({user:{currentUser},cart:{hidden}}) => ({
+//   currentUser,
+//   hidden
+// });
 
 // const mapStateToProps = state => ({
 //   currentUser: state.user.currentUser,

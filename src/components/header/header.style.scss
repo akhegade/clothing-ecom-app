@@ -23,5 +23,9 @@
       padding: 10px 15px;
       cursor: pointer;
     }
+
+    .active {
+      border-bottom: 2px solid blue;
+    }
   }
 }

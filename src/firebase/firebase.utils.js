@@ -16,21 +16,13 @@ var firebaseConfig = {
 //CREATING USER IN FIRE_BASE FIRE_STORE
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-  console.log("userAuth = ", userAuth);
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  console.log("userAuth in firebase Utils = ", userAuth);
 
-  console.log("userRef", userRef);
-  // console.log("tolken",userRef.pd.credentials.getToken());
-
-  //  console.log("token = ",auth.getToken());
+  const userRef = await firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
-
-  console.log("snap shot =", snapShot);
-  console.log("displayName =", additionalData);
-
-  if (!snapShot.exitsts) {
+  if (!snapShot.exists) {
     const {displayName, email} = userAuth;
     const createdAt = new Date();
 
@@ -47,7 +39,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
-  // console.log("documents =",firestore.doc("users/:1d234f43345"));
 };
 
 //PASSWORD REST METHOD FROM FIRE_BASE
@@ -65,7 +56,6 @@ export const forgotPassword = async email => {
 };
 
 //EMAIL VERIFICATION METHOD FROM FIRE_BASE AUTHENTICATIOIN
-
 export const verifyEmail = async (auth, userAuth) => {
   var actionCodeSettings = {
     url: "http://localhost:3000/"

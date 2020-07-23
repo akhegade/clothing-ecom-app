@@ -3,12 +3,17 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {setCurrentUser} from "./redux/user/user.action";
 
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUser} from "./redux/user/user.selector";
+
 import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sing-up/sign-in-and-sing-up.component";
+import CheckOutPage from "./pages/check-out/check-out.component";
+
 import PasswordRest from "./components/password-reset/passwordReset.component";
 import CustomButton from "./components/custom-button/custom-button.component";
 import {
@@ -31,10 +36,14 @@ class App extends React.Component {
   componentDidMount() {
     const {setCurrentUser} = this.props;
     this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      console.log("userAuth in AppComponent ", userAuth);
+
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
+          console.log("snapshot data ", snapShot.data());
+
           setCurrentUser({
             id: snapShot.id,
             emailVerified: auth.currentUser.emailVerified,
@@ -46,6 +55,7 @@ class App extends React.Component {
         setCurrentUser(userAuth);
       }
     });
+    console.log("app component did mount");
   }
 
   componentWillUnmount() {
@@ -59,6 +69,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckOutPage} />
           <Route
             exact
             path="/signin"
@@ -74,8 +85,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
