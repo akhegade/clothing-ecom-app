@@ -22,8 +22,10 @@
     .option {
       padding: 10px 15px;
       cursor: pointer;
+      &:hover {
+        border-bottom: 2px solid blue;
+      }
     }
-
     .active {
       border-bottom: 2px solid blue;
     }
