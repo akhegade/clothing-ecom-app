@@ -3,14 +3,15 @@ import "firebase/firestore";
 import "firebase/auth";
 
 var firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
+  apiKey: "AIzaSyBFt_tORrQaTDC_GSrcxRmPzphSKumjrok",
   authDomain: "your-fash.firebaseapp.com",
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  databaseURL: "https://your-fash.firebaseio.com",
+  //process.env.REACT_APP_DATABASE_URL,
   projectId: "your-fash",
   storageBucket: "your-fash.appspot.com",
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  messagingSenderId: "120790033523",
+  appId: "1:120790033523:web:3fe2ac663aa7cd3e36b606",
+  measurementId: "G-BHPB2Y6DL9"
 };
 
 //CREATING USER IN FIRE_BASE FIRE_STORE
