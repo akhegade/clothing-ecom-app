@@ -1,12 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "./collection-preview.style.scss";
 
 import CollectionItem from "../collection-item/collection-item.component";
 
 function CollectionPreview({title, items}) {
+
+  // const [noOfItems, setnoOfItems] = useState(4);
+
   return (
     <div className="collection-preview">
+      {/* <span className="left-arrow" onClick={() => setnoOfItems(noOfItems - 1)}>
+        {" "}
+        &#8678;
+      </span>
+      <span className="rigth-arrow" onClick={() => setnoOfItems(noOfItems + 1 )}>
+        {" "}
+        &#8680;
+      </span> */}
       <h1 className="title">{title}</h1>
       <div className="preview">
         {items

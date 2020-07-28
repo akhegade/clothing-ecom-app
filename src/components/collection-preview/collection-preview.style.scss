@@ -1,7 +1,41 @@
 .collection-preview {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+
+  //for scolling feature style
+  .left-arrow,
+  .rigth-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+    position: absolute;
+    top: 250px;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    // border: 2px solid blue;
+    border-radius: 70%;
+    color: yellow;
+    z-index: 1;
+    box-shadow: -10px -2px 10px 10px transparent;
+    cursor: pointer;
+  }
+
+  .left-arrow {
+    left: -2%;
+  }
+  .rigth-arrow {
+    right: -2%;
+  }
+
+  .left-arrow:hover,
+  .rigth-arrow:hover {
+    background-color: lightskyblue;
+    color: red;
+  }
 
   .title {
     font-size: 28px;
