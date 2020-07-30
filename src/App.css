@@ -1,13 +1,8 @@
-
-body {
-  font-family: "Open Sans Condensed";
-  padding: 1.25% 3.75%;
-}
 a {
   text-decoration: none;
   color: black;
 }
 
-*{
+* {
   box-sizing: border-box;
 }

@@ -1,0 +1,62 @@
+.user-profile {
+  position: absolute;
+  top: 90px;
+  right: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid white;
+  border-top-color: rosybrown;
+  border-bottom-color: rosybrown;
+  background-color: white;
+  color: #4285f4;
+  z-index: 200;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+
+  span {
+    margin-top: 10px;
+  }
+  .verfied {
+    color: forestgreen;
+    margin-left: 4px;
+  }
+  .not-verified {
+    color: rgba(158, 6, 6, 0.973);
+  }
+  .custom-button {
+    margin-top: 10px;
+    background-color: #4285f4;
+    color: aliceblue;
+    border-color: #4285f4;
+    &:hover {
+      box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+.user-profile::before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: rosybrown;
+  top: -11px;
+  right: 32px;
+  -ms-transform: rotate(45deg); /* IE 9 */
+  background-color: white;
+  transform: rotate(45deg);
+  border-top: 1px solid rosybrown;
+  border-right: none; // 0px solid white;
+  border-bottom: none; // 0px solid white;
+  border-left: 1px solid rosybrown;
+
+  // border-bottom-color: ;
+}

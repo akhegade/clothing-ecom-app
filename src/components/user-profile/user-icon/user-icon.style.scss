@@ -1,0 +1,16 @@
+.user-name {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid royalblue;
+  border-radius: 50%;
+  // font-family: cursive;
+  margin-left: 1rem;
+  padding: 20px;
+  color: whitesmoke;
+  background-color: slateblue;
+}

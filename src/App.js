@@ -22,6 +22,11 @@ import {
   verifyEmail
 } from "./firebase/firebase.utils";
 
+import {loadingPageAtBeging} from "./utils";
+
+import {ReactComponent as Logo} from "./assets/crown.svg";
+import PageLoader from "./components/page-loader/page-loader.component";
+
 // const EmailVerify = props => (
 //   <div style={{color: "brown", textAlign: "center", padding: "10px"}}>
 //    <span>X</span>
@@ -31,9 +36,15 @@ import {
 // );
 
 class App extends React.Component {
+  state = {
+    loading: true
+  };
+
   unsubcribeFromAuth = null;
 
   componentDidMount() {
+    loadingPageAtBeging().then(() => this.setState({loading: false}));
+
     const {setCurrentUser} = this.props;
     this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       console.log("userAuth in AppComponent ", userAuth);
@@ -63,12 +74,16 @@ class App extends React.Component {
   }
 
   render() {
+    const {loading} = this.state;
+    if (loading) {
+      return <PageLoader />;
+    }
     return (
       <div>
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route  path="/shop" component={ShopPage} />
+          <Route path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckOutPage} />
           <Route
             exact
