@@ -10,7 +10,7 @@ import {
 import "./checkout-item.style.scss";
 
 const CheckOutItem = ({cartItem, addItem, removeItem, clearItemFromCart}) => {
-  const {id, imageUrl, price, name, quantity} = cartItem;
+  const {imageUrl, price, name, quantity} = cartItem;
 
   return (
     <div className="checkout-item">

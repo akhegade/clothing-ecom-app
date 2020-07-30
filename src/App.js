@@ -13,19 +13,12 @@ import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sing-up/sign-in-and-sing-up.component";
 import CheckOutPage from "./pages/check-out/check-out.component";
-
+import PageLoader from "./components/page-loader/page-loader.component";
 import PasswordRest from "./components/password-reset/passwordReset.component";
-import CustomButton from "./components/custom-button/custom-button.component";
-import {
-  auth,
-  createUserProfileDocument,
-  verifyEmail
-} from "./firebase/firebase.utils";
+
+import {auth, createUserProfileDocument} from "./firebase/firebase.utils";
 
 import {loadingPageAtBeging} from "./utils";
-
-import {ReactComponent as Logo} from "./assets/crown.svg";
-import PageLoader from "./components/page-loader/page-loader.component";
 
 // const EmailVerify = props => (
 //   <div style={{color: "brown", textAlign: "center", padding: "10px"}}>
@@ -47,14 +40,10 @@ class App extends React.Component {
 
     const {setCurrentUser} = this.props;
     this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log("userAuth in AppComponent ", userAuth);
-
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          console.log("snapshot data ", snapShot.data());
-
           setCurrentUser({
             id: snapShot.id,
             emailVerified: auth.currentUser.emailVerified,
@@ -66,7 +55,6 @@ class App extends React.Component {
         setCurrentUser(userAuth);
       }
     });
-    console.log("app component did mount");
   }
 
   componentWillUnmount() {

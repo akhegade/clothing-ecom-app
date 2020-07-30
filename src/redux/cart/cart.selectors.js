@@ -4,8 +4,6 @@ import {createSelector} from "reselect";
 //which will return a pice of state from reducer
 const selectCart = state => state.cart;
 
-const selectUser = state => state.user;
-
 //output seletors
 //which will take input selectors as input,modified it and return it back
 export const selectCartItems = createSelector(

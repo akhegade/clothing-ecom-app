@@ -33,7 +33,7 @@ const CartDropdown = ({cartItems, history, dispatch}) => {
         </>
       ) : (
         <div className="empty-box">
-          <img src="images/empty-box/icons8-empty-box-64.png" />
+          <img src="images/empty-box/icons8-empty-box-64.png" alt="empty-logo"/>
           <span className="empty-message">Your cart is empty</span>
         </div>
       )}
