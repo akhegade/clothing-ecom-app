@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const EmptyBoxContainer = styled.div`
-  margin: 50% auto;
+  ${'' /* margin: 50% auto; */}
+  position: absolute;
+  top:30%;
+  left:20%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,9 +12,7 @@ export const EmptyBoxContainer = styled.div`
   animation-duration: 6s;
   animation-fill-mode: forwards;
 
-
-
-${'' /* const animationOpacity = css` */}
+  ${"" /* const animationOpacity = css` */}
   @keyframes opacity {
     0% {
       opacity: 0;
@@ -19,8 +20,9 @@ ${'' /* const animationOpacity = css` */}
     100% {
       opacity: 1;
     }
-  ${'' /* } `; */}
-${'' /* //   ${animationOpacity} */}
+    ${"" /* } `; */}
+    ${"" /* //   ${animationOpacity} */}
+  }
 `;
 
 export const EmptyMessage = styled.span`
