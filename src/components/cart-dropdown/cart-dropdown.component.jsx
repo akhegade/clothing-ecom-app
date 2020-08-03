@@ -9,35 +9,36 @@ import {selectCartItems} from "../../redux/cart/cart.selectors";
 
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
+import EmptyCart from "../error-components/cart-error.boundry/empty-cart.component";
 
-import "./cart-dropdowm.style.scss";
+// import "./cart-dropdown.style.scss";
+
+import {
+  CartDropdownContainer,
+  CartItemsContainer
+} from "./cart-dropdown.styles";
 
 const CartDropdown = ({cartItems, history, dispatch}) => {
- 
- 
   const goToCheckOutPage = () => {
     history.push("/checkout");
     dispatch(toggleCartHidden());
   };
 
   return (
-    <div className="cart-dropdown">
+    <CartDropdownContainer>
       {cartItems.length ? (
         <>
-          <div className="cart-items">
+          <CartItemsContainer>
             {cartItems.map(cartItem => (
               <CartItem key={cartItem.id} item={cartItem} />
             ))}
-          </div>
+          </CartItemsContainer>
           <CustomButton onClick={goToCheckOutPage}>GO TO CHECKOUT</CustomButton>
         </>
       ) : (
-        <div className="empty-box">
-          <img src="images/empty-box/icons8-empty-box-64.png" alt="empty-logo"/>
-          <span className="empty-message">Your cart is empty</span>
-        </div>
+        <EmptyCart />
       )}
-    </div>
+    </CartDropdownContainer>
   );
 };
 

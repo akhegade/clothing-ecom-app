@@ -1,15 +1,20 @@
 import React from "react";
 
-import "./collection-preview.style.scss";
+// import "./collection-preview.style.scss";
 
 import CollectionItem from "../collection-item/collection-item.component";
 
-function CollectionPreview({title, items}) {
+import {
+  CollectionPreviewContainer,
+  CollectionName,
+  PreviewContainer
+} from "./collection-preview.styles";
 
+function CollectionPreview({title, items}) {
   // const [noOfItems, setnoOfItems] = useState(4);
 
   return (
-    <div className="collection-preview">
+    <CollectionPreviewContainer>
       {/* <span className="left-arrow" onClick={() => setnoOfItems(noOfItems - 1)}>
         {" "}
         &#8678;
@@ -18,15 +23,15 @@ function CollectionPreview({title, items}) {
         {" "}
         &#8680;
       </span> */}
-      <h1 className="title">{title}</h1>
-      <div className="preview">
+      <CollectionName>{title}</CollectionName>
+      <PreviewContainer>
         {items
           .filter((item, index) => index < 4)
           .map(item => (
             <CollectionItem key={item.id} item={item} />
           ))}
-      </div>
-    </div>
+      </PreviewContainer>
+    </CollectionPreviewContainer>
   );
 }
 

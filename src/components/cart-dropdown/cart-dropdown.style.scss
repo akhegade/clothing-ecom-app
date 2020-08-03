@@ -9,7 +9,7 @@
   border: 1px solid rosybrown;
   background-color: white;
   top: 90%;
-  right: 0;
+  right: -6px;
   z-index: 5;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -52,15 +52,15 @@
 .cart-dropdown::before {
   position: absolute;
   top: -9px;
-  right: 32px;
+  right: 30px;
   content: "";
-  // background-color: white;
+  background-color: white;
   width: 15px;
   height: 15px;
-  // border-top: 1px solid rosybrown;
+  border-top: 1px solid rosybrown;
   border-right: none; // 0px solid white;
   // border-bottom:  1px solid rosybrown;
-  // border-left: 1px solid rosybrown;
+  border-left: 1px solid rosybrown;
   -ms-transform: rotate(45deg); /* IE 9 */
   transform: rotate(45deg);
   animation-name: opacity;

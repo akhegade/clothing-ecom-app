@@ -39,22 +39,31 @@ class App extends React.Component {
     loadingPageAtBeging().then(() => this.setState({loading: false}));
 
     const {setCurrentUser} = this.props;
-    this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    try {
+      this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+        try {
+          if (userAuth) {
+            // try{
+            const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            emailVerified: auth.currentUser.emailVerified,
-            ...snapShot.data()
-          });
-        });
-        // console.log(auth.currentUser);
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
+            userRef.onSnapshot(snapShot => {
+              setCurrentUser({
+                id: snapShot.id,
+                emailVerified: auth.currentUser.emailVerified,
+                ...snapShot.data()
+              });
+            });
+            // console.log(auth.currentUser);
+          } else {
+            setCurrentUser(userAuth);
+          }
+        } catch (error) {
+          console.log("authError", error);
+        }
+      });
+    } catch (error) {
+      console.log("auth2Error", error);
+    }
   }
 
   componentWillUnmount() {

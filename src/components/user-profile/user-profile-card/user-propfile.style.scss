@@ -1,7 +1,7 @@
 .user-profile {
   position: absolute;
-  top: 90px;
-  right: 40px;
+  top: 106%;
+  right: -11px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,10 +45,10 @@
 .user-profile::before {
   position: absolute;
   content: "";
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background-color: rosybrown;
-  top: -11px;
+  top: -9px;
   right: 32px;
   -ms-transform: rotate(45deg); /* IE 9 */
   background-color: white;

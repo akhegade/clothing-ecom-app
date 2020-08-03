@@ -1,6 +1,15 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
+
 import "./menu-item.style.scss";
+
+import {
+  MenuItemContainer,
+  BackgroundImage,
+  ContentContainer,
+  ContentTitle,
+  ContenSubTitle
+} from "./menu-item.styles";
 
 const MenuItem = ({
   title,
@@ -12,20 +21,16 @@ const MenuItem = ({
   match
 }) => {
   return (
-    <div
-      className={`${size} menu-item`}
+    <MenuItemContainer
+      size={size}
       onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
-      <div
-        className="background-image"
-        style={{backgroundImage: `url(${imageUrl})`}}
-      />
-
-      <div className="content">
-        <h1 className="title">{title.toUpperCase()}</h1>
-        <span className="sibtitle">SHOP NOW</span>
-      </div>
-    </div>
+      <BackgroundImage className="background-image" imageUrl={imageUrl} />
+      <ContentContainer className="content">
+        <ContentTitle>{title.toUpperCase()}</ContentTitle>
+        <ContenSubTitle className="sibtitle">SHOP NOW</ContenSubTitle>
+      </ContentContainer>
+    </MenuItemContainer>
   );
 };
 

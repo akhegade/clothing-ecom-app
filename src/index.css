@@ -12,6 +12,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   padding: 1.25% 3.75%;
+  background-color: rgb(250, 207, 18);
+  /* #131A24 */
+  /* #BD2927 */
+  /* color: azure; */
 }
 
 code {

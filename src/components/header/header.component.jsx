@@ -11,63 +11,58 @@ import {toggleUserProfile} from "../../redux/user/user.action";
 
 import {auth} from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
-import CartDropdown from "../cart-dropdown/cart-dropdowm.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import UserIcon from "../user-profile/user-icon/user-icon.component";
 import UserProfile from "../user-profile/user-profile-card/user-profile.component";
 import CustomButton from "../custom-button/custom-button.component";
 import {ReactComponent as Logo} from "../../assets/crown.svg";
 
-import "./header.style.scss";
-
+// import "./header.style.scss";
+import {
+  HeaderContainer,
+  LogoConatainer,
+  OptionContainer,
+  OptionLink,
+  OptionDiv
+} from "./header.styles.jsx";
 const Header = ({currentUser, hidden, showUserProfile, dispatch, history}) => {
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoConatainer to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <NavLink className="option" to="/shop">
-          SHOP
-        </NavLink>
-        <NavLink className="option" to="/contact">
-          CONTACT
-        </NavLink>
-        {currentUser ? null : (
-          <NavLink className="option" to="/signin">
-            {" "}
-            SIGN IN
-          </NavLink>
-        )}
-
-        <CartIcon />
+      </LogoConatainer>
+      <OptionContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        <OptionLink to="/contact">CONTACT</OptionLink>
+        {currentUser ? null : <OptionLink to="/signin"> SIGN IN</OptionLink>}
+        <OptionLink as={"div"}>
+          <CartIcon />
+          {hidden ? null : <CartDropdown />}
+        </OptionLink>
         {currentUser ? (
-          <UserIcon user={currentUser} dispatch={dispatch} />
+          <OptionLink as={"div"}>
+            <UserIcon user={currentUser} dispatch={dispatch} />
+            {showUserProfile ? (
+              <UserProfile user={currentUser}>
+                {currentUser ? (
+                  <CustomButton
+                    onClick={() => {
+                      dispatch(toggleUserProfile());
+                      auth.signOut();
+                      history.push("/signin");
+                    }}
+                  >
+                    SIGN OUT
+                  </CustomButton>
+                ) : (
+                  <OptionLink to="/signin"> SIGN IN</OptionLink>
+                )}
+              </UserProfile>
+            ) : null}
+          </OptionLink>
         ) : null}
-
-        {hidden ? null : <CartDropdown />}
-      </div>
-      {/* {hidden ? null : <CartDropdown />} */}
-      {showUserProfile ? (
-        <UserProfile user={currentUser}>
-          {currentUser ? (
-            <CustomButton
-              onClick={() => {
-                dispatch(toggleUserProfile());
-                auth.signOut();
-                history.push("/signin");
-              }}
-            >
-              SIGN OUT
-            </CustomButton>
-          ) : (
-            <NavLink className="option" to="/signin">
-              {" "}
-              SIGN IN
-            </NavLink>
-          )}
-        </UserProfile>
-      ) : null}
-    </div>
+      </OptionContainer>
+    </HeaderContainer>
   );
 };
 
