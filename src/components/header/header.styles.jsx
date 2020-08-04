@@ -11,6 +11,7 @@ const optionLinkHoverAndActiveClassAppend = css`
   :hover {
     color: blue;
     border-bottom: 2px solid blue;
+    
   }
 
   &.active {
@@ -46,6 +47,7 @@ export const OptionLink = styled(NavLink)`
   padding: 10px 10px;
   cursor: pointer;
   ${"" /* transition:border-bottom 2s ease-out ; */}
+  transition: all 3s ease;
   ${({as}) => (as!=='div' ? optionLinkHoverAndActiveClassAppend : null)};
   ${"" /* border-bottom:${(props)=> props.active ? "2px solid blue" : "none"}; */}
 `;
