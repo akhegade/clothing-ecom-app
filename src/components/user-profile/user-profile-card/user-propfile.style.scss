@@ -11,7 +11,7 @@
   border-top-color: rosybrown;
   border-bottom-color: rosybrown;
   background-color: white;
-  color: #4285f4;
+  color: #4286f4;
   z-index: 200;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -28,11 +28,14 @@
   .not-verified {
     color: rgba(158, 6, 6, 0.973);
   }
-  .custom-button {
+  button {
     margin-top: 10px;
-    background-color: #4285f4;
+    // min-width: 100px;
+    background-color: #42f442;
     color: aliceblue;
     border-color: #4285f4;
+    // width: 5rem;
+    border-radius: none;
     &:hover {
       box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
         0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),

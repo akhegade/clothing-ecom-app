@@ -10,7 +10,7 @@ import {Link, NavLink} from "react-router-dom";
 const optionLinkHoverAndActiveClassAppend = css`
   :hover {
     color: blue;
-    border-bottom: 2px solid blue;
+    border-bottom: 2px solid white;
     
   }
 
@@ -47,7 +47,7 @@ export const OptionLink = styled(NavLink)`
   padding: 10px 10px;
   cursor: pointer;
   ${"" /* transition:border-bottom 2s ease-out ; */}
-  transition: all 3s ease;
+  transition: border-bottom 3s ease;
   ${({as}) => (as!=='div' ? optionLinkHoverAndActiveClassAppend : null)};
   ${"" /* border-bottom:${(props)=> props.active ? "2px solid blue" : "none"}; */}
 `;

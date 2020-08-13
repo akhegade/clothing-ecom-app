@@ -1,5 +1,5 @@
 import React from "react";
-
+import {withRouter} from "react-router-dom";
 // import "./collection-preview.style.scss";
 
 import CollectionItem from "../collection-item/collection-item.component";
@@ -10,7 +10,7 @@ import {
   PreviewContainer
 } from "./collection-preview.styles";
 
-function CollectionPreview({title, items}) {
+function CollectionPreview({title, items,routeName, match:{path}}) {
   // const [noOfItems, setnoOfItems] = useState(4);
 
   return (
@@ -23,7 +23,7 @@ function CollectionPreview({title, items}) {
         {" "}
         &#8680;
       </span> */}
-      <CollectionName>{title}</CollectionName>
+      <CollectionName to={`${path}/${routeName}`}>{title}</CollectionName>
       <PreviewContainer>
         {items
           .filter((item, index) => index < 4)
@@ -35,4 +35,4 @@ function CollectionPreview({title, items}) {
   );
 }
 
-export default CollectionPreview;
+export default withRouter(CollectionPreview);

@@ -15,7 +15,8 @@ class SignIn extends React.Component {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      hide: true
     };
   }
 
@@ -38,7 +39,7 @@ class SignIn extends React.Component {
       });
   };
 
-// login from firbase using signInWithEmailAndPassword
+  // login from firbase using signInWithEmailAndPassword
   handleSubmit = async event => {
     event.preventDefault();
 
@@ -53,6 +54,7 @@ class SignIn extends React.Component {
   };
 
   render() {
+    const {password, hide} = this.state;
     return (
       <div className="sign-in">
         <h2 className="title">I already have an account</h2>
@@ -68,13 +70,21 @@ class SignIn extends React.Component {
             required
           />
           <FormInput
-            type="password"
+            type={hide ? "password" : "text"}
             name="password"
             value={this.state.password}
             handleChange={this.handleChange}
             required
             label="Password"
           >
+              <button
+                type="button"
+                onClick={() => this.setState({hide: !hide})}
+              >
+                {hide ? "Show" : "Hide"}
+              </button>
+            
+
             <Link
               to={`rest-password/${this.state.email}`}
               className="restPassword"

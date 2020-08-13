@@ -16,7 +16,13 @@ import CheckOutPage from "./pages/check-out/check-out.component";
 import PageLoader from "./components/page-loader/page-loader.component";
 import PasswordRest from "./components/password-reset/passwordReset.component";
 
-import {auth, createUserProfileDocument} from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  // addCollectionAndDocuments //for adding collection and documents into firestroe
+} from "./firebase/firebase.utils";
+
+// import {selectCollectionPrivew} from "./redux/shop/shop.selector";
 
 import {loadingPageAtBeging} from "./utils";
 
@@ -36,34 +42,32 @@ class App extends React.Component {
   unsubcribeFromAuth = null;
 
   componentDidMount() {
+    const {setCurrentUser, collectionArray} = this.props;
+
     loadingPageAtBeging().then(() => this.setState({loading: false}));
 
-    const {setCurrentUser} = this.props;
-    try {
-      this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-        try {
-          if (userAuth) {
-            // try{
-            const userRef = await createUserProfileDocument(userAuth);
-
-            userRef.onSnapshot(snapShot => {
-              setCurrentUser({
-                id: snapShot.id,
-                emailVerified: auth.currentUser.emailVerified,
-                ...snapShot.data()
-              });
-            });
-            // console.log(auth.currentUser);
-          } else {
-            setCurrentUser(userAuth);
-          }
-        } catch (error) {
-          console.log("authError", error);
-        }
-      });
-    } catch (error) {
-      console.log("auth2Error", error);
-    }
+    this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // console.log("userAuth",userAuth);
+      
+      if (userAuth) {
+         try{
+        const userRef = await createUserProfileDocument(userAuth);
+        // console.log("userRef",userRef);
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({
+            id: snapShot.id,
+            emailVerified: auth.currentUser.emailVerified,
+            ...snapShot.data()
+          });
+        });
+         }catch(error){console.log("error",error)};
+         
+        // console.log(auth.currentUser);
+      } else {
+        setCurrentUser(userAuth);
+        // addCollectionAndDocuments('collections',collectionArray.map(({title,items})=>({title,items})));
+      }
+    }); 
   }
 
   componentWillUnmount() {
@@ -98,7 +102,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  //collectionArray: selectCollectionPrivew
 });
 
 const mapDispatchToProps = dispatch => ({
