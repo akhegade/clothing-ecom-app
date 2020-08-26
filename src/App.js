@@ -18,7 +18,7 @@ import PasswordRest from "./components/password-reset/passwordReset.component";
 
 import {
   auth,
-  createUserProfileDocument,
+  createUserProfileDocument
   // addCollectionAndDocuments //for adding collection and documents into firestroe
 } from "./firebase/firebase.utils";
 
@@ -48,26 +48,28 @@ class App extends React.Component {
 
     this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       // console.log("userAuth",userAuth);
-      
+
       if (userAuth) {
-         try{
-        const userRef = await createUserProfileDocument(userAuth);
-        // console.log("userRef",userRef);
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            emailVerified: auth.currentUser.emailVerified,
-            ...snapShot.data()
+        try {
+          const userRef = await createUserProfileDocument(userAuth);
+          // console.log("userRef",userRef);
+          userRef.onSnapshot(snapShot => {
+            setCurrentUser({
+              id: snapShot.id,
+              emailVerified: auth.currentUser.emailVerified,
+              ...snapShot.data()
+            });
           });
-        });
-         }catch(error){console.log("error",error)};
-         
+        } catch (error) {
+          console.log("error", error);
+        }
+
         // console.log(auth.currentUser);
       } else {
         setCurrentUser(userAuth);
         // addCollectionAndDocuments('collections',collectionArray.map(({title,items})=>({title,items})));
       }
-    }); 
+    });
   }
 
   componentWillUnmount() {
@@ -102,7 +104,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
+  currentUser: selectCurrentUser
   //collectionArray: selectCollectionPrivew
 });
 

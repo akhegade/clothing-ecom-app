@@ -27,16 +27,32 @@ class ShopPage extends React.Component {
   unsubscribeFromSnapshot = null;
 
   componentDidMount() {
-    const {loading} =this.state
+    const {loading} = this.state;
     const {setShopCollections} = this.props;
     const collectionRef = firestore.collection("collections");
 
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
-      const collections = await convertCollectionsSnapShotToMap(snapshot);
-      setShopCollections(collections);
+    // OBSERVABLE PATTREN : this is using observable pattern provided the firebase
+    // this.unsubscribeFromSnapshot = collectionRef.onSnapshot(snapshot => {
+    //   const collections = convertCollectionsSnapShotToMap(snapshot);
+    //   setShopCollections(collections);
+    //   this.setState({loading: !loading});
+    //   // console.log("newCollectionObject", newCollectionObject);
+
+    // });
+
+    // PROMISE PATTREN :
+    collectionRef.get().then(snapshot => {
+      const collectionsMap = convertCollectionsSnapShotToMap(snapshot);
+      setShopCollections(collectionsMap);
       this.setState({loading: !loading});
-      // console.log("newCollectionObject", newCollectionObject);
     });
+
+    // FETCHING API :
+    // fetch(
+    //   "https://firestore.googleapis.com/v1/projects/your-fash/databases/(default)/documents/collections"
+    // )
+    //   .then(response => response.json())
+    //   .then(collections => console.log(collections));
   }
 
   render() {
@@ -48,10 +64,7 @@ class ShopPage extends React.Component {
           exact
           path={`${match.path}`}
           render={props => (
-            <CollectionOverviewWithSpinner
-              isLoading={loading}
-              {...props}
-            />
+            <CollectionOverviewWithSpinner isLoading={loading} {...props} />
           )}
           // component={CollectionOverview}
         />
