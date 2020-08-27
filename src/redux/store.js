@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from "redux";
+import {createStore, applyMiddleware, compose} from "redux";
 
 import {persistStore} from "redux-persist";
 
@@ -13,7 +13,25 @@ if (process.env.NODE_ENV === "development") {
   middlerware.push(logger);
 }
 
-export const store = createStore(rootReducer, applyMiddleware(...middlerware));
+export let store;
+// export const store = createStore(rootReducer, applyMiddleware(...middlerware));
+
+const ReactReduxDevTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+if (window.navigator.userAgent.includes("Chrome") && ReactReduxDevTools) {
+  store = createStore(
+    rootReducer,
+    //initialState,
+    compose(applyMiddleware(...middlerware), ReactReduxDevTools)
+  );
+} else {
+  store = createStore(
+    rootReducer,
+    //initialState,
+    compose(applyMiddleware(...middlerware))
+  );
+}
 
 export const persistor = persistStore(store);
 
