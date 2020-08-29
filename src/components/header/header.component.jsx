@@ -7,7 +7,7 @@ import {selectCurrentUser} from "../../redux/user/user.selector";
 import {selectCartHidden} from "../../redux/cart/cart.selectors";
 import {selectUserProfile} from "../../redux/user/user.selector";
 
-import {toggleUserProfile} from "../../redux/user/user.action";
+import {toggleUserProfile, signOutStart} from "../../redux/user/user.action";
 
 import {auth} from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
@@ -25,7 +25,15 @@ import {
   OptionLink,
   OptionDiv
 } from "./header.styles.jsx";
-const Header = ({currentUser, hidden, showUserProfile, dispatch, history}) => {
+const Header = ({
+  currentUser,
+  hidden,
+  showUserProfile,
+  history,
+  dispatch,
+  signOutStart,
+  toggleUserProfile
+}) => {
   return (
     <HeaderContainer>
       <LogoConatainer to="/">
@@ -41,14 +49,14 @@ const Header = ({currentUser, hidden, showUserProfile, dispatch, history}) => {
         </OptionLink>
         {currentUser ? (
           <OptionLink as={"div"}>
-            <UserIcon user={currentUser} dispatch={dispatch} />
+            <UserIcon user={currentUser} toggleUserProfile={toggleUserProfile} />
             {showUserProfile ? (
               <UserProfile user={currentUser}>
                 {currentUser ? (
                   <CustomButton
                     onClick={() => {
-                      dispatch(toggleUserProfile());
-                      auth.signOut();
+                      toggleUserProfile();
+                      signOutStart();
                       history.push("/signin");
                     }}
                   >
@@ -73,17 +81,26 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden
 });
 
+const mapDispatchToProps = dispatch => ({
+  toggleUserProfile: () => dispatch(toggleUserProfile()),
+  signOutStart: () => dispatch(signOutStart())
+});
+
 //without using createStacturedSelector
+
 // const mapStateToProps = state => ({
 //   currentUser: selectCurrentUser(state),
 //   hidden: selectCartHidden(state)
 // });
 
 //advance way detructuring objects
+
 // const mapStateToProps = ({user:{currentUser},cart:{hidden}}) => ({
 //   currentUser,
 //   hidden
 // });
+
+//comman way of implementing mapStateToProps
 
 // const mapStateToProps = state => ({
 //   currentUser: state.user.currentUser,
@@ -92,4 +109,4 @@ const mapStateToProps = createStructuredSelector({
 
 // const mapDispatchToProps = Dis
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

@@ -16,6 +16,8 @@ import CheckOutPage from "./pages/check-out/check-out.component";
 import PageLoader from "./components/page-loader/page-loader.component";
 import PasswordRest from "./components/password-reset/passwordReset.component";
 
+import {checkUserSession} from "./redux/user/user.action";
+
 import {
   auth,
   createUserProfileDocument
@@ -42,34 +44,35 @@ class App extends React.Component {
   unsubcribeFromAuth = null;
 
   componentDidMount() {
-    const {setCurrentUser, collectionArray} = this.props;
+    const {setCurrentUser, checkUserSession} = this.props;
 
     loadingPageAtBeging().then(() => this.setState({loading: false}));
 
-    this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      // console.log("userAuth",userAuth);
+    checkUserSession();
+    // this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   // console.log("userAuth",userAuth);
 
-      if (userAuth) {
-        try {
-          const userRef = await createUserProfileDocument(userAuth);
-          // console.log("userRef",userRef);
-          userRef.onSnapshot(snapShot => {
-            setCurrentUser({
-              id: snapShot.id,
-              emailVerified: auth.currentUser.emailVerified,
-              ...snapShot.data()
-            });
-          });
-        } catch (error) {
-          console.log("error", error);
-        }
+    //   if (userAuth) {
+    //     try {
+    //       const userRef = await createUserProfileDocument(userAuth);
+    //       // console.log("userRef",userRef);
+    //       userRef.onSnapshot(snapShot => {
+    //         setCurrentUser({
+    //           id: snapShot.id,
+    //           emailVerified: auth.currentUser.emailVerified,
+    //           ...snapShot.data()
+    //         });
+    //       });
+    //     } catch (error) {
+    //       console.log("error", error);
+    //     }
 
-        // console.log(auth.currentUser);
-      } else {
-        setCurrentUser(userAuth);
-        // addCollectionAndDocuments('collections',collectionArray.map(({title,items})=>({title,items})));
-      }
-    });
+    //     // console.log(auth.currentUser);
+    //   } else {
+    //     setCurrentUser(userAuth);
+    //     // addCollectionAndDocuments('collections',collectionArray.map(({title,items})=>({title,items})));
+    //   }
+    // });
   }
 
   componentWillUnmount() {
@@ -109,7 +112,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  // setCurrentUser: user => dispatch(setCurrentUser(user)),
+  checkUserSession: () => dispatch(checkUserSession())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
