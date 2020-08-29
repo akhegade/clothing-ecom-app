@@ -9,7 +9,6 @@ import {selectUserProfile} from "../../redux/user/user.selector";
 
 import {toggleUserProfile, signOutStart} from "../../redux/user/user.action";
 
-import {auth} from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import UserIcon from "../user-profile/user-icon/user-icon.component";
@@ -49,7 +48,10 @@ const Header = ({
         </OptionLink>
         {currentUser ? (
           <OptionLink as={"div"}>
-            <UserIcon user={currentUser} toggleUserProfile={toggleUserProfile} />
+            <UserIcon
+              user={currentUser}
+              toggleUserProfile={toggleUserProfile}
+            />
             {showUserProfile ? (
               <UserProfile user={currentUser}>
                 {currentUser ? (

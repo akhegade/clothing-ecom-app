@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 
 import {Link} from "react-router-dom";
@@ -15,24 +15,19 @@ import {
 
 import {auth} from "../../firebase/firebase.utils";
 
-class SignIn extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      hide: true
-    };
-  }
+const SignIn = ({emailSingInStart, googleSingInStart}) => {
+  const [userCredentials, setCredentials] = useState({email: "", password: ""});
+  const [isPasswordHidden, setPasswordHide] = useState(true);
 
-  handleChange = event => {
+  const handleChange = event => {
     const {name, value} = event.target;
-    this.setState({[name]: value});
+    setCredentials({...userCredentials, [name]: value});
   };
 
   // password Reset method
-  resetPassword = async () => {
-    const emailAddress = this.state.email;
+
+  const resetPassword = async () => {
+    const emailAddress = email;
     auth
       .sendPasswordResetEmail(emailAddress)
       .then(function() {
@@ -45,10 +40,9 @@ class SignIn extends React.Component {
   };
 
   // login from firbase using signInWithEmailAndPassword
-  handleSubmit = async event => {
+  const {email, password} = userCredentials;
+  const handleSubmit = async event => {
     event.preventDefault();
-    const {emailSingInStart} = this.props;
-    const {email, password} = this.state;
 
     emailSingInStart(email, password);
 
@@ -60,67 +54,67 @@ class SignIn extends React.Component {
     // }
   };
 
-  render() {
-    const {password, hide} = this.state;
-    const {googleSingInStart} = this.props;
-    return (
-      <div className="sign-in">
-        <h2 className="title">I already have an account</h2>
-        <span>Sign in with your email and password</span>
+  //const {email,password} = userCredentials;
+  return (
+    <div className="sign-in">
+      <h2 className="title">I already have an account</h2>
+      <span>Sign in with your email and password</span>
 
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            type="email"
-            name="email"
-            value={this.state.email}
-            handleChange={this.handleChange}
-            label="Email"
-            required
-          />
-          <FormInput
-            type={hide ? "password" : "text"}
-            name="password"
-            value={this.state.password}
-            handleChange={this.handleChange}
-            required
-            label="Password"
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          type="email"
+          name="email"
+          value={email}
+          handleChange={handleChange}
+          label="Email"
+          required
+        />
+        <FormInput
+          type={isPasswordHidden ? "password" : "text"}
+          name="password"
+          value={password}
+          handleChange={handleChange}
+          required
+          label="Password"
+        >
+          <button
+            type="button"
+            onClick={() => setPasswordHide(!isPasswordHidden)}
           >
-            <button type="button" onClick={() => this.setState({hide: !hide})}>
-              {hide ? "Show" : "Hide"}
-            </button>
+            {isPasswordHidden ? "Show" : "Hide"}
+          </button>
 
-            <Link
-              to={`rest-password/${this.state.email}`}
-              className="restPassword"
-              // onClick={this.resetPassword}
-            >
-              Forgot Password
-            </Link>
-          </FormInput>
+          <Link
+            to={`rest-password/${email}`}
+            className="restPassword"
+            // onClick={this.resetPassword}
+          >
+            Forgot Password
+          </Link>
+        </FormInput>
 
-          {/* <span
+        {/* <span
             className="restPassword"
             onClick={this.resetPassword}
           >
             Forgot Password
           </span> */}
 
-          <div className="buttons">
-            <CustomButton type="submit">Sign In </CustomButton>
-            <CustomButton
-              type="button"
-              onClick={googleSingInStart}
-              isGoogleSignIn
-            >
-              Sign In With Google
-            </CustomButton>
-          </div>
-        </form>
-        {/* <span onClick={this.props.signUp}>I don't have account</span> */}
-      </div>
-    );
-  }
-}
+        <div className="buttons">
+          <CustomButton type="submit">Sign In </CustomButton>
+          <CustomButton
+            type="button"
+            onClick={googleSingInStart}
+            isGoogleSignIn
+          >
+            Sign In With Google
+          </CustomButton>
+        </div>
+      </form>
+      {/* <span onClick={this.props.signUp}>I don't have account</span> */}
+    </div>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   googleSingInStart: () => dispatch(googleSingInStart()),

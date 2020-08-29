@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {setCurrentUser} from "./redux/user/user.action";
@@ -36,75 +36,37 @@ import {loadingPageAtBeging} from "./utils";
 //   </div>
 // );
 
-class App extends React.Component {
-  state = {
-    loading: true
-  };
+const App = ({currentUser, checkUserSession}) => {
+  const [isLoading, setLoading] = useState(true);
 
-  unsubcribeFromAuth = null;
-
-  componentDidMount() {
-    const {setCurrentUser, checkUserSession} = this.props;
-
-    loadingPageAtBeging().then(() => this.setState({loading: false}));
-
+  useEffect(() => {
+    loadingPageAtBeging().then(() => setLoading(false));
     checkUserSession();
-    // this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //   // console.log("userAuth",userAuth);
+  }, [checkUserSession]);
 
-    //   if (userAuth) {
-    //     try {
-    //       const userRef = await createUserProfileDocument(userAuth);
-    //       // console.log("userRef",userRef);
-    //       userRef.onSnapshot(snapShot => {
-    //         setCurrentUser({
-    //           id: snapShot.id,
-    //           emailVerified: auth.currentUser.emailVerified,
-    //           ...snapShot.data()
-    //         });
-    //       });
-    //     } catch (error) {
-    //       console.log("error", error);
-    //     }
-
-    //     // console.log(auth.currentUser);
-    //   } else {
-    //     setCurrentUser(userAuth);
-    //     // addCollectionAndDocuments('collections',collectionArray.map(({title,items})=>({title,items})));
-    //   }
-    // });
+  if (isLoading) {
+    return <PageLoader />;
   }
-
-  componentWillUnmount() {
-    this.unsubcribeFromAuth();
-  }
-
-  render() {
-    const {loading} = this.state;
-    if (loading) {
-      return <PageLoader />;
-    }
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckOutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-            }
-          />
-          <Route path="/rest-password/:email" component={PasswordRest} />
-          <Route path="/rest-password/" component={PasswordRest} />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckOutPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
+        <Route path="/rest-password/:email" component={PasswordRest} />
+        <Route path="/rest-password/" component={PasswordRest} />
+      </Switch>
+    </div>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
