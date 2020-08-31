@@ -20,7 +20,7 @@ import {checkUserSession} from "./redux/user/user.action";
 
 import {
   auth,
-  createUserProfileDocument
+  createUserProfileDocument,
   // addCollectionAndDocuments //for adding collection and documents into firestroe
 } from "./firebase/firebase.utils";
 
@@ -47,6 +47,7 @@ const App = ({currentUser, checkUserSession}) => {
   if (isLoading) {
     return <PageLoader />;
   }
+
   return (
     <div>
       <Header />
@@ -69,13 +70,13 @@ const App = ({currentUser, checkUserSession}) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
   //collectionArray: selectCollectionPrivew
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   // setCurrentUser: user => dispatch(setCurrentUser(user)),
-  checkUserSession: () => dispatch(checkUserSession())
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
