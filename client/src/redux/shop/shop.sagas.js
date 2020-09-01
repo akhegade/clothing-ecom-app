@@ -25,7 +25,7 @@ export function* fectCollectionsAsync() {
     const collectionRef = firestore.collection("collections");
 
     const snapshot = yield collectionRef.get();
-    console.log("snapshot :", snapshot);
+    // console.log("snapshot :", snapshot);
 
     const collectionsMap = yield call(
       convertCollectionsSnapShotToMap,

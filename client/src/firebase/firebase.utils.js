@@ -83,7 +83,7 @@ export const convertCollectionsSnapShotToMap = collections => {
     };
   });
 
-  console.log("transformedColleciton", transformedColleciton);
+  // console.log("transformedColleciton", transformedColleciton);
   return transformedColleciton.reduce((accumulator, collection) => {
     accumulator[collection.routeName] = collection;
     return accumulator;
