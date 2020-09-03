@@ -18,6 +18,7 @@ export const ItemDetailContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding: 10px 20px;
+  color:black;
 `;
 
 export const NameSpan = styled.span`
