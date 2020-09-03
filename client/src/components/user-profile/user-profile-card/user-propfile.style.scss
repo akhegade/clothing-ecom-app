@@ -31,10 +31,8 @@
     .user-info {
       display: flex;
       flex-direction: column;
-      margin: none;
+      margin: 6px 0 0 10px;
       padding: none;
-      margin-left: 0.8rem;
-      margin-top: 0.3rem;
       font-size: 0.8rem;
 
       // span {
@@ -52,7 +50,7 @@
       .email:hover span {
         display: inline-block;
         position: absolute;
-        text-align: center;;
+        text-align: center;
         right: 2rem;
         top: 1.5rem;
         width: 8rem;
@@ -79,10 +77,7 @@
         border-bottom: none; // 0px solid white;
         border-left: 1px solid blue;
       }
-      span[title="Verified"] {
-        display: inline-block;
-        background-color: green;
-      }
+
       .verfied {
         color: forestgreen;
         margin-left: 4px;
