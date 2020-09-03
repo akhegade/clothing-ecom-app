@@ -18,23 +18,94 @@
     0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12);
 
-  span {
-    margin-top: 10px;
+  .user-details {
+    display: flex;
+
+    .user-name {
+      width: 3rem;
+      height: 3rem;
+      pointer-events: none;
+      background-color: #4286f4;
+      cursor: none;
+    }
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      margin: none;
+      padding: none;
+      margin-left: 0.8rem;
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+
+      // span {
+      //   margin-top: 10px;
+      // }
+      .email {
+        color: gray;
+      }
+      .email:hover {
+        position: relative;
+      }
+      .email span {
+        display: none;
+      }
+      .email:hover span {
+        display: inline-block;
+        position: absolute;
+        text-align: center;;
+        right: 2rem;
+        top: 1.5rem;
+        width: 8rem;
+        padding: 0.2rem;
+        background-color: white;
+        border: 1px solid blue;
+        border-radius: 10px;
+        // z-index: 500;
+      }
+      .email span::before {
+        content: "";
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+        background-color: rosybrown;
+        top: -6px;
+        right: 50%;
+        -ms-transform: rotate(45deg); /* IE 9 */
+        background-color: white;
+        transform: rotate(45deg);
+        border-top: 1px solid blue;
+        border-right: none; // 0px solid white;
+        border-bottom: none; // 0px solid white;
+        border-left: 1px solid blue;
+      }
+      span[title="Verified"] {
+        display: inline-block;
+        background-color: green;
+      }
+      .verfied {
+        color: forestgreen;
+        margin-left: 4px;
+      }
+      .not-verified {
+        color: rgba(158, 6, 6, 0.973);
+      }
+    }
   }
-  .verfied {
-    color: forestgreen;
-    margin-left: 4px;
-  }
-  .not-verified {
-    color: rgba(158, 6, 6, 0.973);
+  hr {
+    border: none;
+    border: 0.1px solid gray;
+    border-style: solid;
+    margin: none;
+    width: 12rem;
   }
   button {
     margin-top: 10px;
     // min-width: 100px;
-    background-color: #42f442;
+    background-color: #4285f4;
     color: aliceblue;
     border-color: #4285f4;
-    // width: 5rem;
+    // width: 1rem;
     border-radius: none;
     &:hover {
       box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
