@@ -19,10 +19,11 @@ import {ReactComponent as Logo} from "../../assets/crown.svg";
 // import "./header.style.scss";
 import {
   HeaderContainer,
+  TitleContainer,
   LogoConatainer,
   OptionContainer,
   OptionLink,
-  OptionDiv
+  OptionDiv,
 } from "./header.styles.jsx";
 const Header = ({
   currentUser,
@@ -31,13 +32,15 @@ const Header = ({
   history,
   dispatch,
   signOutStart,
-  toggleUserProfile
+  toggleUserProfile,
 }) => {
   return (
     <HeaderContainer>
       <LogoConatainer to="/">
         <Logo className="logo" />
+        <TitleContainer className="title">Your Fash</TitleContainer>
       </LogoConatainer>
+
       <OptionContainer>
         <OptionLink to="/shop">SHOP</OptionLink>
         <OptionLink to="/contact">CONTACT</OptionLink>
@@ -80,12 +83,12 @@ const Header = ({
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   showUserProfile: selectUserProfile,
-  hidden: selectCartHidden
+  hidden: selectCartHidden,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleUserProfile: () => dispatch(toggleUserProfile()),
-  signOutStart: () => dispatch(signOutStart())
+  signOutStart: () => dispatch(signOutStart()),
 });
 
 //without using createStacturedSelector
